@@ -1,14 +1,10 @@
 package com.travel.sibar.sibartravel;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import java.io.IOException;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +17,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
 
         /** Below is example usage of retrieving database, comment if unnesecassry */
 
-        Log.d("Status", "Start dbHelper");
+       /* Log.d("Status", "Start dbHelper");
         dbHeplper = new DatabaseHelper(getApplicationContext());
         try {
             dbHeplper.createDataBase();
@@ -51,6 +49,6 @@ public class MainActivity extends AppCompatActivity {
             lvUsers.setAdapter(adapter);
         }
 
-        Log.d("Status", "Finish");
+        Log.d("Status", "Finish");*/
     }
 }
