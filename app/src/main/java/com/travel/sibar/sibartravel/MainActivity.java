@@ -1,5 +1,6 @@
 package com.travel.sibar.sibartravel;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,10 +22,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent i = new Intent(MainActivity.this, DetailPlaceActivity.class);
+
+// Starts TargetActivity
+        startActivity(i);
 
         /** Below is example usage of retrieving database, comment if unnesecassry */
 
-        Log.d("Status", "Start dbHelper");
+        /*Log.d("Status", "Start dbHelper");
         dbHeplper = new DatabaseHelper(getApplicationContext());
         try {
             dbHeplper.createDataBase();
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Status", "Start ListVIew");
 
         lvUsers = (ListView)findViewById(R.id.listView);
-        List<String> listUsers = dbHeplper.getAllUsers();
+        List<String> listUsers = dbHeplper.getAllActivities("1");
 
 
         if(listUsers != null){
@@ -43,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
             for(int i = 0; i < listUsers.size(); i++){
                 Log.d("Isi LV", listUsers.get(i));
-
             }
+
             adapter = new ArrayAdapter<String>(getApplicationContext(),
                     android.R.layout.simple_list_item_1, android.R.id.text1,
                     listUsers);
@@ -52,5 +57,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.d("Status", "Finish");
-    }
+    }*/}
 }

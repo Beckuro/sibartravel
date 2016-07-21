@@ -25,13 +25,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     * Taken from http://icetea09.com/blog/2014/01/22/android-use-existing-sqlite-database-in-android-app/
      */
 
-    public static String DB_PATH = "/data/data/travel.sibar.sibartravel/databases/";
+    public static String DB_PATH = "/data/data/com.travel.sibar.sibartravel/databases/";
 
-    public static String DB_NAME = "aspera.sqlite";
+    public static String DB_NAME = "aspera";
 
     public static final int DB_VERSION = 1;
 
-    public static final String TB_DESTINATION = "Destination";
+    public static final String TB_DESTINATION = "Destinations";
     public static final String TB_ACTIVITIES = "Activities";
 
     private SQLiteDatabase myDB;
@@ -124,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
         boolean dbExist = checkDataBase();
 
-        if (dbExist) {
+        if (!true) {
 
         } else {
             this.getReadableDatabase();
@@ -159,5 +159,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return listUsers;
+    }
+
+    public List< String > getAllActivities(String id) {
+        List < String > listActivities = new ArrayList<String >();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c;
+
+        try {
+
+            c = db.rawQuery("SELECT * FROM Activities WHERE idPlace=" + id, null);
+            if ( c == null ) return null;
+
+            c.moveToFirst();
+
+            while(c != null) {
+                String actID = c.getString(c.getColumnIndex("actID"));
+                String idPlace = c.getString(c.getColumnIndex("idPlace"));
+                String desc = c.getString(c.getColumnIndex("description"));
+                String idIcon = c.getString(c.getColumnIndex("idIcon"));
+                String coordinates = c.getString(c.getColumnIndex("coordiantes"));
+
+                listActivities.add(actID + "," + idPlace + "," + desc + "," + idIcon + "," + coordinates);
+
+                c.moveToNext();
+            }
+
+        } catch (Exception e) {
+            Log.e("tle9999999999", e.getMessage());
+        }
+
+        db.close();
+        return listActivities;
     }
 }
