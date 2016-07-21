@@ -42,7 +42,7 @@ public class ShowsMaps extends FragmentActivity implements OnMapReadyCallback {
 
         // Add a marker in Sydney and move the camera
         LatLng current = new LatLng(locNow.getLatitude(),locNow.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(current).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(current).title("Current Location"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(current));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 16.0f));

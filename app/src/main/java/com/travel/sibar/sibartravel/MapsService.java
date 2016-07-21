@@ -1,12 +1,11 @@
 package com.travel.sibar.sibartravel;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,7 +13,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+
+import java.util.List;
 
 /**
  * Created by satriabagus on 7/18/16.
@@ -28,6 +28,7 @@ public class MapsService extends Service implements LocationListener {
     boolean isNetworkEnable = false;
 
     Location location;
+
 
     double latitude;
     double longitude;
@@ -120,6 +121,8 @@ public class MapsService extends Service implements LocationListener {
 
         return longitude;
     }
+
+
 
     public boolean canGetLocation(){
         return this.canGetLocation;
