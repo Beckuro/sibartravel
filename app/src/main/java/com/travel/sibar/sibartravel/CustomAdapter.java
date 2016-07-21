@@ -2,6 +2,7 @@ package com.travel.sibar.sibartravel;
 
 import android.content.Context;
 import android.media.Image;
+import android.support.annotation.DrawableRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
         this.c = context;
         this.description = description;
         this.icon = icon;
+        this.iconLoc = iconLoc;
     }
 
     public class ViewHolder{
@@ -49,7 +51,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
         holder.descTv.setText(description[position]);
         holder.icon.setImageResource(icon[position]);
-        holder.iconLoc.setImageResource(icon[position]);
+        holder.iconLoc.setImageResource(iconLoc);
 
         return convertView;
     }
