@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!---   <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:id="@+id/imgPlace"/>
+    -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/namePlace"
+        android:hint="UJUNG KULON"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="30dp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pricePlace"
+        android:layout_below="@id/namePlace"
+        android:hint="PRICE - MEDIUM"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/distancePlace"
+        android:layout_below="@id/pricePlace"
+        android:hint="Banten - 100 km away"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"/>
+
+
+
+</RelativeLayout>

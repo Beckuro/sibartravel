@@ -25,9 +25,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     * Taken from http://icetea09.com/blog/2014/01/22/android-use-existing-sqlite-database-in-android-app/
      */
 
-    public static String DB_PATH = "/data/data/travel.sibar.sibartravel/databases/";
+    public static String DB_PATH = "/data/data/com.travel.sibar.sibartravel/databases/";
 
-    public static String DB_NAME = "aspera.sqlite";
+    public static String DB_NAME = "Aspera.sqlite";
 
     public static final int DB_VERSION = 1;
 
@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-    
+
     }
 
     @
@@ -79,7 +79,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         if (tempDB != null)
             tempDB.close();
-        return tempDB != null ? true : false;
+        return false;
+        //return tempDB != null ? true : false;
     }
 
     /***
@@ -88,7 +89,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void copyDataBase() throws IOException {
         try {
+
             InputStream myInput = context.getAssets().open(DB_NAME);
+
+            Log.d("myInput to string",myInput.toString());
+
             String outputFileName = DB_PATH + DB_NAME;
             OutputStream myOutput = new FileOutputStream(outputFileName);
 
@@ -141,16 +146,60 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c;
 
+        String categoriesQuery = "mountain";
         try {
-            c = db.rawQuery("SELECT * FROM " + TB_DESTINATION, null);
+            String query = "Select * FROM " + TB_DESTINATION + " WHERE " + "categories" + " =  \"" + categoriesQuery + "\"";
+            c = db.rawQuery(query, null);
+
             if (c == null) return null;
 
             String name;
+            String placeID;
+            String accomodation;
+            String description;
+            String mainPictUrl;
+            String categories;
+            String priceLevel;
+            String long_rad;
+            String lat_rad;
+
+            int nameIndex = c.getColumnIndex("name");
+            int placeIDIndex = c.getColumnIndex("placeID");
+            int accomodationIndex = c.getColumnIndex("accomodation");
+            int descriptionIndex = c.getColumnIndex("description");
+            int mainPictUrlIndex = c.getColumnIndex("mainPictUrl");
+            int categoriesIndex = c.getColumnIndex("categories");
+            int priceLevelIndex = c.getColumnIndex("priceLevel");
+            int long_radIndex = c.getColumnIndex("long_rad");
+            int lat_radIndex = c.getColumnIndex("lat_rad");
+
             c.moveToFirst();
-            do {
-                name = c.getString(1);
-                listUsers.add(name);
-            } while (c.moveToNext());
+
+            int counter = 1;
+            while(c != null){
+
+                name = c.getString(nameIndex);
+                placeID = c.getString(placeIDIndex);
+                accomodation = c.getString(accomodationIndex);
+                description = c.getString(descriptionIndex);
+                mainPictUrl = c.getString(mainPictUrlIndex);
+                categories = c.getString(categoriesIndex);
+                priceLevel = c.getString(priceLevelIndex);
+                long_rad = c.getString(long_radIndex);
+                lat_rad = c.getString(lat_radIndex);
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(name + " " + placeID + " " + accomodation + " " + description + " " + mainPictUrl + " " + categories + " " + priceLevel + " " + long_rad + " " + lat_rad);
+
+
+                Log.d("Hasil "+ counter, sb.toString());
+
+
+                counter++;
+                c.moveToNext();
+            }
+
+
             c.close();
         } catch (Exception e) {
             Log.e("tle99", e.getMessage());
@@ -159,5 +208,88 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return listUsers;
+    }
+
+    public SearchResultsModel getSearchResults(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c;
+        SearchResultsModel searchResultsModel = new SearchResultsModel();
+
+        String categoriesQuery = "mountain";
+
+        try {
+            String query = "Select * FROM " + TB_DESTINATION + " WHERE " + "categories" + " =  \"" + categoriesQuery + "\"";
+            c = db.rawQuery(query, null);
+
+            if (c == null) return null;
+
+            String name;
+            String placeID;
+            String mainPictUrl;
+            String priceLevel;
+            String long_rad;
+            String lat_rad;
+
+            int nameIndex = c.getColumnIndex("name");
+            int placeIDIndex = c.getColumnIndex("placeID");
+            int mainPictUrlIndex = c.getColumnIndex("mainPictUrl");
+            int priceLevelIndex = c.getColumnIndex("priceLevel");
+            int long_radIndex = c.getColumnIndex("long_rad");
+            int lat_radIndex = c.getColumnIndex("lat_rad");
+
+            c.moveToFirst();
+
+            int counter = 0;
+            while(c != null){
+
+                name = c.getString(nameIndex);
+                placeID = c.getString(placeIDIndex);
+                mainPictUrl = c.getString(mainPictUrlIndex);
+                priceLevel = c.getString(priceLevelIndex);
+                long_rad = c.getString(long_radIndex);
+                lat_rad = c.getString(lat_radIndex);
+
+                String[] tempName = searchResultsModel.getName();
+                tempName[counter] = name;
+                searchResultsModel.setName(tempName);
+
+                String[] tempPlace = searchResultsModel.getPlaceID();
+                tempPlace[counter] = placeID;
+                searchResultsModel.setPlaceID(tempPlace);
+
+                 String[] tempURL = searchResultsModel.getImgURL();
+                tempURL[counter] = mainPictUrl;
+                searchResultsModel.setImgURL(tempURL);
+
+                String[] tempPrice = searchResultsModel.getPrice();
+                tempPrice[counter] = priceLevel;
+                searchResultsModel.setName(tempPrice);
+
+                 String[] tempLong = searchResultsModel.getLong_rad();
+                tempLong[counter] = long_rad;
+                searchResultsModel.setLong_rad(tempLong);
+
+                 String[] tempLat = searchResultsModel.getLat_rad();
+                tempLat[counter] = lat_rad;
+                searchResultsModel.setName(tempLat);
+
+                String[] tempID = searchResultsModel.getPlaceID();
+                tempID[counter] = placeID;
+                searchResultsModel.setName(tempID);
+
+
+                counter++;
+                c.moveToNext();
+            }
+
+
+            c.close();
+        } catch (Exception e) {
+            Log.e("tle99", e.getMessage());
+        }
+
+        db.close();
+
+        return searchResultsModel;
     }
 }
