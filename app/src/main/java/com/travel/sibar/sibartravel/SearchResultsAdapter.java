@@ -28,7 +28,7 @@ public class SearchResultsAdapter extends ArrayAdapter<String> {
 
     LayoutInflater inflater;
 
-    public SearchResultsAdapter(Context context, String[] imgURL, String[] name, String [] price, String[] lat_rad, String[] long_rad, String[] distance){
+    public SearchResultsAdapter(Context context, String[] imgURL, String[] name, String [] price, String[] coordinates, String[] distance){
         super(context, R.layout.search_result_model, name);
 
         this.context = context;

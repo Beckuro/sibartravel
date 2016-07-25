@@ -1,82 +1,75 @@
 package com.travel.sibar.sibartravel;
 
+import java.util.ArrayList;
+
 /**
  * Created by ibrahim on 21/07/16.
  */
 public class SearchResultsModel {
 
 
-    String[] name;
-    String[] imgURL;
-    String[] price;
-    String[] long_rad;
-    String[] lat_rad;
-    String[] placeID;
-    String[] distance;
+    ArrayList<String> name;
+    ArrayList<String> imgURL;
+    ArrayList<String> price;
+    ArrayList<String> coordinates;
+    ArrayList<String> placeID;
+    ArrayList<String> distance;
 
     public SearchResultsModel(){
-        name = new String[2];
-        imgURL = new String[2];
-        price = new String[2];
-        long_rad = new String[2];
-        lat_rad = new String[2];
-        placeID = new String[2];
-        distance = new String[2];
-    }
-    public String[] getLat_rad() {
-        return lat_rad;
+        name = new ArrayList<String>();
+        imgURL = new ArrayList<String>();
+        price = new ArrayList<String>();
+        placeID = new ArrayList<String>();
+        distance = new ArrayList<String>();
+        coordinates = new ArrayList<String>();
     }
 
-    public void setLat_rad(String[] lat_rad) {
-        this.lat_rad = lat_rad;
-    }
-
-    public String[] getImgURL() {
+    public ArrayList<String> getImgURL() {
         return imgURL;
     }
 
-    public void setImgURL(String[] imgURL) {
+    public void setImgURL(ArrayList<String> imgURL) {
         this.imgURL = imgURL;
     }
 
-    public String[] getLong_rad() {
-        return long_rad;
+    public ArrayList<String> getCoordinates(){
+        return this.coordinates;
     }
 
-    public void setLong_rad(String[] long_rad) {
-        this.long_rad = long_rad;
-    }
-
-    public String[] getName() {
+    public ArrayList<String> getName() {
         return name;
     }
 
-    public void setName(String[] name) {
+    public void setName(ArrayList<String> name) {
         this.name = name;
     }
 
-    public String[] getPlaceID() {
+    public ArrayList<String> getPlaceID() {
         return placeID;
     }
 
-    public void setPlaceID(String[] placeID) {
+    public void setPlaceID(ArrayList<String> placeID) {
         this.placeID = placeID;
     }
 
-    public String[] getPrice() {
+    public ArrayList<String> getPrice() {
         return price;
     }
 
-    public void setPrice(String[] price) {
+    public void setPrice(ArrayList<String> price) {
         this.price = price;
     }
 
 
-    public String[] getDistance() {
+    public ArrayList<String> getDistance() {
         return distance;
     }
 
-    public void setDistance(String[] distance) {
+    public void setCoordinates(ArrayList<String> c){
+        this.coordinates = c;
+    }
+
+    public void setDistance(ArrayList<String> distance) {
         this.distance = distance;
     }
 }

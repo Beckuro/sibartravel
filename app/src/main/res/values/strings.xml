@@ -2,11 +2,14 @@
     <string name="app_name">SibarTravel</string>
     <string name="title_activity_shows_maps">Map</string>
     <string-array name="category">
+        <item>Snorkeling</item>
+        <item>Camping</item>
         <item>Hiking</item>
-        <item>Local Hidden</item>
-        <item>Rafting</item>
-        <item>Food</item>
-        <item>mountain</item>
-        <item>beach</item>
+        <item>Hidden Tribe</item>
+        <item>Elephant</item>
+        <item>Para Gliding</item>
+        <item>Sky Diving</item>
+        <item>Swimming</item>
+        <item>Safari</item>
     </string-array>
 </resources>

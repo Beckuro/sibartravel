@@ -62,15 +62,15 @@ public class MapsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String coordinates = text.getText().toString();
-                String categories = spinner.getSelectedItem().toString();
+                String activities = spinner.getSelectedItem().toString().toLowerCase().trim();
 
                 Intent intent = new Intent(MapsActivity.this, SearchResults.class);
 
                 intent.putExtra("coordinates", coordinates);
-                intent.putExtra("categories", categories);
+                intent.putExtra("activities", activities);
 
                 Log.d("coordinates",coordinates);
-                Log.d("categories",categories);
+                Log.d("activities",activities);
                 startActivity(intent);
 
             }

@@ -210,7 +210,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listUsers;
     }
 
-    public SearchResultsModel getSearchResults(String coordinates, String catQuery){
+    public SearchResultsModel getSearchResults(String coordinates, String actQuery){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c;
         SearchResultsModel searchResultsModel = new SearchResultsModel();
@@ -220,17 +220,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         double lat_deg_query = Double.parseDouble(arrCoordinates[0]);
         double long_deg_query = Double.parseDouble(arrCoordinates[1]);
 
-        double lat_rad_query = Double.parseDouble(arrCoordinates[0])*Math.PI/180;
-        double long_rad_query = Double.parseDouble(arrCoordinates[1])*Math.PI/180;
-
-        double sin_long_rad = Math.sin(long_rad_query);
-        double cos_long_rad = Math.cos(long_rad_query);
-
-        double sin_lat_rad = Math.sin(lat_rad_query);
-        double cos_lat_rad = Math.cos(lat_rad_query);
-
         try {
-            String query = "Select *  FROM " + TB_DESTINATION + " WHERE " + "categories" + " =  \"" + catQuery + "\"";
+            String query = "Select *  FROM " + TB_DESTINATION + " WHERE " + actQuery + " =  \"" + "TRUE" + "\"";
             c = db.rawQuery(query, null);
 
             if (c == null) return null;
@@ -239,15 +230,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String placeID;
             String mainPictUrl;
             String priceLevel;
-            String long_rad;
-            String lat_rad;
+            String coord;
 
             int nameIndex = c.getColumnIndex("name");
             int placeIDIndex = c.getColumnIndex("placeID");
             int mainPictUrlIndex = c.getColumnIndex("mainPictUrl");
             int priceLevelIndex = c.getColumnIndex("priceLevel");
-            int long_radIndex = c.getColumnIndex("long_rad");
-            int lat_radIndex = c.getColumnIndex("lat_rad");
+            int coordinates_index = c.getColumnIndex("coordinates");
 
             c.moveToFirst();
 
@@ -258,48 +247,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 placeID = c.getString(placeIDIndex);
                 mainPictUrl = c.getString(mainPictUrlIndex);
                 priceLevel = c.getString(priceLevelIndex);
-                long_rad = c.getString(long_radIndex);
-                lat_rad = c.getString(lat_radIndex);
+                coord = c.getString(coordinates_index);
 
-                String[] tempName = searchResultsModel.getName();
-                tempName[counter] = name.toUpperCase();
+                ArrayList<String> tempName = searchResultsModel.getName();
+                tempName.add(name.toUpperCase());
                 searchResultsModel.setName(tempName);
 
-                String[] tempPlace = searchResultsModel.getPlaceID();
-                tempPlace[counter] = placeID;
-                searchResultsModel.setPlaceID(tempPlace);
+                ArrayList<String> tempPlaceID = searchResultsModel.getPlaceID();
+                tempPlaceID.add(placeID);
+                searchResultsModel.setPlaceID(tempPlaceID);
 
-                 String[] tempURL = searchResultsModel.getImgURL();
-                tempURL[counter] = mainPictUrl;
+                ArrayList<String> tempURL = searchResultsModel.getImgURL();
+                tempURL.add(mainPictUrl);
                 searchResultsModel.setImgURL(tempURL);
 
-                String[] tempPrice = searchResultsModel.getPrice();
+                ArrayList<String> tempPrice = searchResultsModel.getPrice();
                 priceLevel = getPriceLevel(Integer.parseInt(priceLevel)).toUpperCase();
-                tempPrice[counter] = priceLevel;
+                tempPrice.add(priceLevel);
                 searchResultsModel.setPrice(tempPrice);
 
-                 String[] tempLong = searchResultsModel.getLong_rad();
-                tempLong[counter] = long_rad;
-                searchResultsModel.setLong_rad(tempLong);
+                ArrayList<String> tempCoordinates = searchResultsModel.getCoordinates();
+                tempCoordinates.add(coord);
+                searchResultsModel.setCoordinates(tempCoordinates);
 
-                 String[] tempLat = searchResultsModel.getLat_rad();
-                tempLat[counter] = lat_rad;
-                searchResultsModel.setLat_rad(tempLat);
+                ArrayList<String> tempDistance = searchResultsModel.getDistance();
 
-                String[] tempID = searchResultsModel.getPlaceID();
-                tempID[counter] = placeID;
-                searchResultsModel.setPlaceID(tempID);
+                String[] place_coordinates = coord.split(",");
 
-                String[] tempDistance = searchResultsModel.getDistance();
+                double place_latitude = Double.parseDouble(place_coordinates[0]);
+                double place_longitude = Double.parseDouble(place_coordinates[1]);
 
-              /*  double lat_deg = Double.parseDouble(lat_rad)/Math.PI*180;
-                double long_deg = Double.parseDouble(long_rad)/Math.PI*180;
-*/
-                double distance = getDistance(lat_deg_query, long_deg_query, Double.parseDouble(lat_rad), Double.parseDouble(long_rad), 'K');
+                double distance = getDistance(lat_deg_query, long_deg_query, place_latitude, place_longitude, 'K');
                 distance = Math.ceil(distance);
-                String strDistance = distance + " KM".toUpperCase();
+                String strDistance = distance + " KM AWAY".toUpperCase();
 
-                tempDistance[counter] = strDistance;
+                tempDistance.add(strDistance);
 
                 searchResultsModel.setDistance(tempDistance);
 
