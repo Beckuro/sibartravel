@@ -12,10 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 /**
  * Created by ibrahim on 21/07/16.
  */
-;import org.w3c.dom.Text;
+;import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -24,15 +27,17 @@ import java.net.URL;
 public class SearchResultsAdapter extends ArrayAdapter<String> {
 
     Context context;
-    String[] name = {};
-    String[] price = {};
-    String [] lat_rad = {};
-    String [] long_rad = {};
-    String [] imgURL = {};
+    String[] name;
+    String[] price;
+    String [] lat_rad;
+    String [] long_rad;
+    String [] imgURL;
+    String[] distance;
+
     LayoutInflater inflater;
 
-    public SearchResultsAdapter(Context context, String[] imgURL, String[] name, String [] price, String[] lat_rad, String[] long_rad){
-        super(context, R.layout.search_result_model);
+    public SearchResultsAdapter(Context context, String[] imgURL, String[] name, String [] price, String[] lat_rad, String[] long_rad, String[] distance){
+        super(context, R.layout.search_result_model, name);
 
         this.context = context;
         this.name = name;
@@ -40,10 +45,11 @@ public class SearchResultsAdapter extends ArrayAdapter<String> {
         this.long_rad = long_rad;
         this.price = price;
         this.imgURL = imgURL;
+        this.distance = distance;
 
         Log.d("Isi di adapter name", toString(this.name));
         Log.d("isi di adapter imgUrl", toString(this.imgURL));
-        Log.d("isi di adapter distance", toString(this.long_rad));
+        Log.d("isi di adapter distance", toString(this.distance));
         Log.d("isi di adapter price", toString(this.price));
     }
 
@@ -60,45 +66,7 @@ public class SearchResultsAdapter extends ArrayAdapter<String> {
         TextView namePlace;
         TextView pricePlace;
         TextView distancePlace;
-        //ImageView imgPlace;
-        Bitmap bitmap;
-
-       /* public Bitmap getBitmapFromURLHelper(String src){
-            try{
-                URL url = new URL(src);
-                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                bitmap = myBitmap;
-
-                Log.d("Bitmap", bitmap.toString());
-
-                return bitmap;
-
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        public ImageView setImageHelper(ImageView iv, Bitmap bmp){
-
-            iv.setImageBitmap(bmp);
-            return iv;
-        }
-
-        public ImageView setImage(String src){
-
-            bitmap = getBitmapFromURLHelper(src);
-
-            imgPlace = setImageHelper(this.imgPlace, bitmap);
-
-            return imgPlace;
-        }*/
-
+        ImageView imgPlace;
     }
     public View getView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
@@ -111,15 +79,19 @@ public class SearchResultsAdapter extends ArrayAdapter<String> {
 
         holder.namePlace = (TextView) convertView.findViewById(R.id.namePlace);
         holder.distancePlace = (TextView) convertView.findViewById(R.id.distancePlace);
-        //holder.imgPlace = (ImageView) convertView.findViewById(R.id.imgPlace);
         holder.pricePlace = (TextView) convertView.findViewById(R.id.pricePlace);
+        holder.imgPlace = (ImageView) convertView.findViewById(R.id.imgPlace);
 
         holder.namePlace.setText(name[position]);
-        holder.distancePlace.setText(long_rad[position]);
+        holder.distancePlace.setText(distance[position]);
         holder.pricePlace.setText(price[position]);
-        //holder.setImage(imgURL[position]);
 
-        //return super.getView(position, convertView, parent);
+        Log.d("IMAGEURL", imgURL[position]);
+
+        Picasso.with(context).load(imgURL[position]).fit().into(holder.imgPlace);
+
+
+
         return convertView;
     }
 

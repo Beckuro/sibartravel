@@ -12,6 +12,7 @@ public class SearchResultsModel {
     String[] long_rad;
     String[] lat_rad;
     String[] placeID;
+    String[] distance;
 
     public SearchResultsModel(){
         name = new String[2];
@@ -20,6 +21,7 @@ public class SearchResultsModel {
         long_rad = new String[2];
         lat_rad = new String[2];
         placeID = new String[2];
+        distance = new String[2];
     }
     public String[] getLat_rad() {
         return lat_rad;
@@ -69,4 +71,12 @@ public class SearchResultsModel {
         this.price = price;
     }
 
+
+    public String[] getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String[] distance) {
+        this.distance = distance;
+    }
 }

@@ -210,15 +210,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listUsers;
     }
 
-    public SearchResultsModel getSearchResults(){
+    public SearchResultsModel getSearchResults(String coordinates, String catQuery){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c;
         SearchResultsModel searchResultsModel = new SearchResultsModel();
 
-        String categoriesQuery = "mountain";
+        String[] arrCoordinates = coordinates.split(",");
+
+        double lat_deg_query = Double.parseDouble(arrCoordinates[0]);
+        double long_deg_query = Double.parseDouble(arrCoordinates[1]);
+
+        double lat_rad_query = Double.parseDouble(arrCoordinates[0])*Math.PI/180;
+        double long_rad_query = Double.parseDouble(arrCoordinates[1])*Math.PI/180;
+
+        double sin_long_rad = Math.sin(long_rad_query);
+        double cos_long_rad = Math.cos(long_rad_query);
+
+        double sin_lat_rad = Math.sin(lat_rad_query);
+        double cos_lat_rad = Math.cos(lat_rad_query);
 
         try {
-            String query = "Select * FROM " + TB_DESTINATION + " WHERE " + "categories" + " =  \"" + categoriesQuery + "\"";
+            String query = "Select *  FROM " + TB_DESTINATION + " WHERE " + "categories" + " =  \"" + catQuery + "\"";
             c = db.rawQuery(query, null);
 
             if (c == null) return null;
@@ -250,7 +262,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 lat_rad = c.getString(lat_radIndex);
 
                 String[] tempName = searchResultsModel.getName();
-                tempName[counter] = name;
+                tempName[counter] = name.toUpperCase();
                 searchResultsModel.setName(tempName);
 
                 String[] tempPlace = searchResultsModel.getPlaceID();
@@ -262,8 +274,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 searchResultsModel.setImgURL(tempURL);
 
                 String[] tempPrice = searchResultsModel.getPrice();
+                priceLevel = getPriceLevel(Integer.parseInt(priceLevel)).toUpperCase();
                 tempPrice[counter] = priceLevel;
-                searchResultsModel.setName(tempPrice);
+                searchResultsModel.setPrice(tempPrice);
 
                  String[] tempLong = searchResultsModel.getLong_rad();
                 tempLong[counter] = long_rad;
@@ -271,12 +284,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                  String[] tempLat = searchResultsModel.getLat_rad();
                 tempLat[counter] = lat_rad;
-                searchResultsModel.setName(tempLat);
+                searchResultsModel.setLat_rad(tempLat);
 
                 String[] tempID = searchResultsModel.getPlaceID();
                 tempID[counter] = placeID;
-                searchResultsModel.setName(tempID);
+                searchResultsModel.setPlaceID(tempID);
 
+                String[] tempDistance = searchResultsModel.getDistance();
+
+                double lat_deg = Double.parseDouble(lat_rad)/Math.PI*180;
+                double long_deg = Double.parseDouble(long_rad)/Math.PI*180;
+
+                double distance = getDistance(lat_deg_query, long_deg_query, lat_deg, long_deg, 'K');
+                String strDistance = distance + " KM".toUpperCase();
+
+                tempDistance[counter] = strDistance;
+
+                searchResultsModel.setDistance(tempDistance);
 
                 counter++;
                 c.moveToNext();
@@ -291,5 +315,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return searchResultsModel;
+    }
+
+    public String getPriceLevel(int n){
+        if(n >= 1 && n <= 3){
+            return "Price Level - Cheap";
+        } else if (n > 3 && n <= 7){
+            return "Price Level - Moderate";
+        } else {
+            return "Price Level - Expensive";
+        }
+    }
+
+    private double getDistance(double lat1, double lon1, double lat2, double lon2, char unit) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        if (unit == 'K') {
+            dist = dist * 1.609344;
+        } else if (unit == 'N') {
+            dist = dist * 0.8684;
+        }
+        return (dist);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts decimal degrees to radians             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts radians to decimal degrees             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
     }
 }

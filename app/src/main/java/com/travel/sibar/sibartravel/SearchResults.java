@@ -3,6 +3,7 @@ package com.travel.sibar.sibartravel;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,12 +11,14 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class SearchResults extends ListActivity {
+public class SearchResults extends AppCompatActivity {
 
     ListView lv;
     String[] name;
     String[] imgURL;
     String[] distance;
+    String[] lat_rad;
+    String[] long_rad;
     String[] price;
     String[] placeID;
 
@@ -27,42 +30,27 @@ public class SearchResults extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        //lv = (ListView) findViewById(R.id.);
-
         db = new DatabaseHelper(getApplicationContext());
 
-        srModel = db.getSearchResults();
+        String coordinates = "-6.275581, 106.856972";
+        String catQuery = "mountain";
+
+        srModel = db.getSearchResults(coordinates, catQuery);
+
+        lv = (ListView) findViewById(R.id.lvResult);
 
         name = srModel.getName();
         imgURL = srModel.getImgURL();
-        distance = srModel.getLong_rad();
+        distance = srModel.getDistance();
         price = srModel.getPrice();
         placeID = srModel.getPlaceID();
+        lat_rad = srModel.getLat_rad();
+        long_rad = srModel.getLong_rad();
 
-        Log.d("Isi name", toString(name));
-        Log.d("isi imgUrl", toString(imgURL));
-        Log.d("isi distance", toString(distance));
-        Log.d("isi price", toString(price));
+        SearchResultsAdapter adapter = new SearchResultsAdapter(this, imgURL, name, price, lat_rad, long_rad, distance);
 
+        lv.setAdapter(adapter);
 
-        SearchResultsAdapter adapter = new SearchResultsAdapter(this, imgURL, name, price, distance, distance);
-
-        Log.d("Count list adapter", adapter.getCount()+"");
-
-        setListAdapter(adapter);
-
-        ListAdapter list = getListAdapter();
-        Log.d("Empty List", list.isEmpty()+"");
-        Log.d("List content", list.toString());
-        adapter.toString();
-
-        Log.d("proses", "selesai");
-
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Toast.makeText(this, l.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
     }
 
     public String toString(String[] arr){
