@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SibarTravel</string>
+    <string name="title_activity_shows_maps">Map</string>
+    <string-array name="category">
+        <item>Hiking</item>
+        <item>Local Hidden</item>
+        <item>Rafting</item>
+        <item>Food</item>
+    </string-array>
 </resources>
