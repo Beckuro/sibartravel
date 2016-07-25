@@ -1,10 +1,6 @@
 package com.travel.sibar.sibartravel;
 
 import android.content.Intent;
-<<<<<<< HEAD
-import android.support.v7.app.AppCompatActivity;
-=======
->>>>>>> Map
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListAdapter;
@@ -21,12 +17,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
-        startActivity(new Intent(MainActivity.this, SearchResults.class));
-=======
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+
+        try{
+            db.createDataBase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //startActivity(new Intent(MainActivity.this, SearchResults.class));
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(intent);
->>>>>>> Map
 
         /** Below is example usage of retrieving database, comment if unnesecassry *//*
 

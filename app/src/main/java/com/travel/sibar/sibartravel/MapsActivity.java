@@ -3,9 +3,11 @@ package com.travel.sibar.sibartravel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -30,7 +32,7 @@ public class MapsActivity extends AppCompatActivity {
         arr = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
         arr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arr);
-        EditText text = (EditText) findViewById(R.id.editText);
+        final EditText text = (EditText) findViewById(R.id.editText);
 
         if(service.canGetLocation) {
             setLocation();
@@ -54,7 +56,25 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
 
+        Button search = (Button) findViewById(R.id.button);
 
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String coordinates = text.getText().toString();
+                String categories = spinner.getSelectedItem().toString();
+
+                Intent intent = new Intent(MapsActivity.this, SearchResults.class);
+
+                intent.putExtra("coordinates", coordinates);
+                intent.putExtra("categories", categories);
+
+                Log.d("coordinates",coordinates);
+                Log.d("categories",categories);
+                startActivity(intent);
+
+            }
+        });
 
         text.setText(lat+","+lon);
 

@@ -1,15 +1,9 @@
 package com.travel.sibar.sibartravel;
 
-import android.app.Activity;
-import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class SearchResults extends AppCompatActivity {
 
@@ -32,8 +26,10 @@ public class SearchResults extends AppCompatActivity {
 
         db = new DatabaseHelper(getApplicationContext());
 
-        String coordinates = "-6.275581, 106.856972";
-        String catQuery = "mountain";
+        Intent intent = getIntent();
+
+        String coordinates = intent.getExtras().getString("coordinates");
+        String catQuery = intent.getExtras().getString("categories");
 
         srModel = db.getSearchResults(coordinates, catQuery);
 

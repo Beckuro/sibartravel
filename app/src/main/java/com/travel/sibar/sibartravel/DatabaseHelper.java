@@ -292,10 +292,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 String[] tempDistance = searchResultsModel.getDistance();
 
-                double lat_deg = Double.parseDouble(lat_rad)/Math.PI*180;
+              /*  double lat_deg = Double.parseDouble(lat_rad)/Math.PI*180;
                 double long_deg = Double.parseDouble(long_rad)/Math.PI*180;
-
-                double distance = getDistance(lat_deg_query, long_deg_query, lat_deg, long_deg, 'K');
+*/
+                double distance = getDistance(lat_deg_query, long_deg_query, Double.parseDouble(lat_rad), Double.parseDouble(long_rad), 'K');
+                distance = Math.ceil(distance);
                 String strDistance = distance + " KM".toUpperCase();
 
                 tempDistance[counter] = strDistance;

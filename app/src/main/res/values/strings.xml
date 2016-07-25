@@ -6,5 +6,7 @@
         <item>Local Hidden</item>
         <item>Rafting</item>
         <item>Food</item>
+        <item>mountain</item>
+        <item>beach</item>
     </string-array>
 </resources>

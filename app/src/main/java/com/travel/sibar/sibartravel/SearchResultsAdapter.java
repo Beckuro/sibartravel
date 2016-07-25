@@ -1,28 +1,20 @@
 package com.travel.sibar.sibartravel;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by ibrahim on 21/07/16.
  */
-;import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+;
 
 public class SearchResultsAdapter extends ArrayAdapter<String> {
 
@@ -85,8 +77,6 @@ public class SearchResultsAdapter extends ArrayAdapter<String> {
         holder.namePlace.setText(name[position]);
         holder.distancePlace.setText(distance[position]);
         holder.pricePlace.setText(price[position]);
-
-        Log.d("IMAGEURL", imgURL[position]);
 
         Picasso.with(context).load(imgURL[position]).fit().into(holder.imgPlace);
 
