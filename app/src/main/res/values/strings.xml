@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">SibarTravel</string>
+    <string name="app_name">Vestigo</string>
     <string name="title_activity_shows_maps">Map</string>
     <string-array name="category">
+        <item>Trekking</item>
         <item>Snorkeling</item>
         <item>Camping</item>
         <item>Hiking</item>

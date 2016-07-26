@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -383,9 +382,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String getPriceLevel(int n){
-        if(n >= 1 && n <= 3){
+        if(n <= 1000000){
             return "Price Level - Cheap";
-        } else if (n > 3 && n <= 7){
+        } else if (n > 1000000 && n < 3000000){
             return "Price Level - Moderate";
         } else {
             return "Price Level - Expensive";

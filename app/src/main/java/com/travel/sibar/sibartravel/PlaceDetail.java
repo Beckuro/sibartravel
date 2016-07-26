@@ -1,13 +1,14 @@
 package com.travel.sibar.sibartravel;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -66,6 +67,18 @@ public class PlaceDetail extends AppCompatActivity {
         lv.bringToFront();
         ivm.bringToFront();
         tv.bringToFront();
+
+        Button btnMaps = (Button) findViewById(R.id.btnMapsDetail);
+
+        btnMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapsService service;
+
+                service = new MapsService(PlaceDetail.this);
+
+            }
+        });
 
         //Toast.makeText(getApplicationContext(), placeID, Toast.LENGTH_SHORT).show();
     }
