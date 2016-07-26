@@ -14,14 +14,15 @@
         android:id="@+id/btnMapsDetail"
         android:enabled="true"
         android:drawableLeft="@drawable/maps"
-        android:text="MAPS" />
+        android:text="MAPS"
+        android:layout_marginRight="16dp"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:layout_alignParentTop="true"
         android:id="@+id/imgPlaceDetail"
-        android:src="@drawable/camping"/>
+        android:src="@drawable/maps"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,12 +35,29 @@
         android:textStyle="bold"
         android:typeface="sans"
         android:textColor="#ffffff" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/imgPlaceDetail"
+        android:hint="put some description here"
+        android:id="@+id/txtDescriptionDetail"
+        android:padding="16dp"
+        android:textColor="#ef5350" />
+
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/imgPlaceDetail"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtDescriptionDetail"
         android:id="@+id/lvActDetail"
-        ></ListView>
+        android:background="@color/accent_material_dark">
+
+    </ListView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/background2"/>
 
 
 </RelativeLayout>

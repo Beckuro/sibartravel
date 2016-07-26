@@ -301,6 +301,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return searchResultsModel;
     }
 
+    public String getPlaceDescription(String placeID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c;
+        String description = "";
+        try {
+
+            String query = "Select description from Destination WHERE " + "placeID" + " =  \"" + placeID + "\"";
+            c = db.rawQuery(query, null);
+
+            if(c == null) return null;
+
+
+
+            int descIndex = c.getColumnIndex("description");
+
+            c.moveToFirst();
+
+            while(c != null){
+
+                description = c.getString(descIndex);
+
+                c.moveToNext();
+            }
+
+            return description;
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return description;
+    }
     public PlaceDetailModel getPlaceDetail(String placeID){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -319,7 +351,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String iconName;
 
             int descIndex = c.getColumnIndex("description");
-            int iconIndex = c.getColumnIndex("icon");
+            int iconIndex = c.getColumnIndex("idIcon");
 
             c.moveToFirst();
 
