@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.travel.sibar.sibartravel.PlaceDetail">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btnMapsDetail"
+        android:enabled="true"
+        android:drawableLeft="@drawable/maps"
+        android:text="MAPS" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/imgPlaceDetail"
+        android:src="@drawable/camping"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:hint="Gunung Ciremai"
+        android:textSize="30dp"
+        android:layout_marginTop="150dp"
+        android:id="@+id/txtPlaceDetail"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:textColor="#ffffff" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/imgPlaceDetail"
+        android:id="@+id/lvActDetail"
+        ></ListView>
+
 
 </RelativeLayout>
