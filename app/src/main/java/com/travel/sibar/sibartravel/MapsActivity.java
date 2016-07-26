@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+
+import com.squareup.picasso.Picasso;
 
 
 public class MapsActivity extends AppCompatActivity {
@@ -77,6 +80,11 @@ public class MapsActivity extends AppCompatActivity {
         });
 
         text.setText(lat+","+lon);
+
+        ImageView iv = (ImageView) findViewById(R.id.background);
+
+        String url = "http://winsource.com/wp-content/uploads/2013/06/now-mountain.png";
+        Picasso.with(getApplicationContext()).load(url).fit().into(iv);
 
     }
 

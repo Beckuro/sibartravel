@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -298,6 +299,87 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return searchResultsModel;
+    }
+
+    public String getPlaceDescription(String placeID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c;
+        String description = "";
+        try {
+
+            String query = "Select description from Destination WHERE " + "placeID" + " =  \"" + placeID + "\"";
+            c = db.rawQuery(query, null);
+
+            if(c == null) return null;
+
+
+
+            int descIndex = c.getColumnIndex("description");
+
+            c.moveToFirst();
+
+            while(c != null){
+
+                description = c.getString(descIndex);
+
+                c.moveToNext();
+            }
+
+            return description;
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return description;
+    }
+    public PlaceDetailModel getPlaceDetail(String placeID){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c;
+        PlaceDetailModel pdm = new PlaceDetailModel();
+
+        try {
+
+            String query = "Select *  FROM " + TB_ACTIVITIES + " WHERE " + "idPlace" + " =  \"" + placeID + "\"";
+
+            c = db.rawQuery(query, null);
+
+            if (c == null) return null;
+
+            String description;
+            String iconName;
+
+            int descIndex = c.getColumnIndex("description");
+            int iconIndex = c.getColumnIndex("idIcon");
+
+            c.moveToFirst();
+
+            while(c!=null){
+
+                description = c.getString(descIndex);
+                iconName = c.getString(iconIndex);
+
+                ArrayList<String> tempDesc = pdm.getDescription();
+                tempDesc.add(description);
+                pdm.setDescription(tempDesc);
+
+                ArrayList<String> tempIconName = pdm.getIcon();
+                tempIconName.add(iconName);
+                pdm.setIcon(tempIconName);
+
+
+
+                c.moveToNext();
+            }
+
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return pdm;
     }
 
     public String getPriceLevel(int n){
