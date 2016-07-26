@@ -13,4 +13,5 @@
         <item>Swimming</item>
         <item>Safari</item>
     </string-array>
+    <string name="title_activity_shows_maps_place">Map</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.travel.sibar.sibartravel;
 
+import android.os.StrictMode;
 import android.text.TextUtils;
 
 import org.json.JSONArray;
@@ -8,10 +9,15 @@ import org.json.JSONObject;
 /**
  * Created by satriabagus on 7/20/16.
  */
-public class getReverseGeoCoding  {
+public class getReverseGeoCoding {
     private String Address1 = "", Address2 = "", City = "", State = "", Country = "", County = "", PIN = "";
+    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
-    public void getAddress(double lat,double lon) {
+    public getReverseGeoCoding(){
+        StrictMode.setThreadPolicy(policy);
+    }
+
+    public void getAddress(double curLatitude, double curLongitude) {
         Address1 = "";
         Address2 = "";
         City = "";
@@ -19,14 +25,13 @@ public class getReverseGeoCoding  {
         Country = "";
         County = "";
         PIN = "";
-
+        parsen_Json parser = new parsen_Json();
 
         try {
 
-
-            JSONObject jsonObj = parsen_Json.getJSONfromURL("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," +
-                 lon  +   "&sensor=true");
-            String Status = "OK";
+            JSONObject jsonObj = parser.getJSONfromURL("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + curLatitude + ","
+                    + curLongitude + "&sensor=true");
+            String Status = jsonObj.getString("status");
             if (Status.equalsIgnoreCase("OK")) {
                 JSONArray Results = jsonObj.getJSONArray("results");
                 JSONObject zero = Results.getJSONObject(0);

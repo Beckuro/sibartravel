@@ -23,11 +23,13 @@ public class MapsActivity extends AppCompatActivity {
     double lon ;
     boolean set = false;
 
+
 //    "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," +
 //    lon  +   "&sensor=true"
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
+
         service = new MapsService(MapsActivity.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
@@ -64,7 +66,7 @@ public class MapsActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String coordinates = text.getText().toString();
+                String coordinates = lat+","+lon;
                 String activities = spinner.getSelectedItem().toString().toLowerCase().trim();
 
                 Intent intent = new Intent(MapsActivity.this, SearchResults.class);
@@ -79,7 +81,18 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
 
-        text.setText(lat+","+lon);
+
+        getReverseGeoCoding getReverseGeoCoding = new getReverseGeoCoding();
+        getReverseGeoCoding.getAddress(lat,lon);
+        String addr = getReverseGeoCoding.getState() +","+ getReverseGeoCoding.getCountry();
+        text.setText(addr);
+        if(getReverseGeoCoding.getState().length() < 1){
+            text.setText(getReverseGeoCoding.getCountry());
+        } else if (getReverseGeoCoding.getCountry().length() < 1 ){
+            text.setText("Cannot Determine Your Location");
+        }
+
+
 
         ImageView iv = (ImageView) findViewById(R.id.background);
 
@@ -103,6 +116,7 @@ public class MapsActivity extends AppCompatActivity {
     public double getLon(){
         return this.lon;
     }
+
 
 
 }

@@ -35,7 +35,10 @@
         <activity
             android:name=".ShowsMaps"
             android:label="@string/title_activity_shows_maps" />
-        <activity android:name=".PlaceDetail"></activity>
+        <activity android:name=".PlaceDetail" />
+        <activity
+            android:name=".ShowsMapsPlace"
+            android:label="@string/title_activity_shows_maps_place"></activity>
     </application>
 
 </manifest>

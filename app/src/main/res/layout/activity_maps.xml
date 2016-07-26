@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:selectAllOnFocus="true"
         android:layout_marginTop="10dp"
-        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:layout_width="match_parent"

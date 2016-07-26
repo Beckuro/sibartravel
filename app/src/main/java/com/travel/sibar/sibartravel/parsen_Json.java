@@ -1,5 +1,6 @@
 package com.travel.sibar.sibartravel;
 
+import android.os.StrictMode;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -14,11 +15,15 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
 /**
- * Created by satriabagus on 7/21/16.
+ * Created by satriabagus on 7/26/16.
  */
-public class parsen_Json {
+class parsen_Json {
+
+    public parsen_Json(){
+        StrictMode.setThreadPolicy(policy);
+    }
+    public static StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
     public static JSONObject getJSONfromURL(String url) {
 
         // initialize
@@ -61,4 +66,5 @@ public class parsen_Json {
 
         return jObject;
     }
+
 }

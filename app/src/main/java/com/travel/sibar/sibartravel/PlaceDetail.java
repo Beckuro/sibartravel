@@ -19,14 +19,14 @@ public class PlaceDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_detail);
         
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         ListView lv = (ListView) findViewById(R.id.lvActDetail);
 
-        String coordinates = intent.getExtras().getString("coordinates");
+        final String coordinates = intent.getExtras().getString("coordinates");
         String imgURL = intent.getExtras().getString("imgURL");
         String placeID = intent.getExtras().getString("placeID");
-        String name = intent.getExtras().getString("name");
+        final String name = intent.getExtras().getString("name");
 
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
 
@@ -76,6 +76,11 @@ public class PlaceDetail extends AppCompatActivity {
                 MapsService service;
 
                 service = new MapsService(PlaceDetail.this);
+
+                Intent intent = new Intent(PlaceDetail.this , ShowsMapsPlace.class);
+                intent.putExtra("coordinates", coordinates);
+                intent.putExtra("name", name);
+                startActivity(intent);
 
             }
         });
