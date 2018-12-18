@@ -1,9 +1,9 @@
 # README
 
-#Introduction
+## Introduction
 Vestigo is the application which help you find a places based on your chosen activity.
 
-#Installation 
+## Installation 
 ```
 
 This file is raw android studio file
@@ -11,11 +11,11 @@ so you must build the apk within android studio or anything that can work
 
 ```
 
-#Bug and Issues
+## Bug and Issues
 There's an issue with some of search result , and activty.
 If you want to improve this project please contact me.
 
-#License
+## License
 The MIT License (MIT)
 Copyright (c) 2016 Aspera Dev
 
